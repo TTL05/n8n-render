@@ -2,7 +2,7 @@
   "name": "n8n-custom",
   "dependencies": {
     "n8n-nodes-mcp": "latest",
-    "n8n-nodes-html-extract": "latest",
+    "n8n-nodes-html-tag-extract": "latest",
     "n8n-nodes-chatgpt": "latest"
   }
 }
