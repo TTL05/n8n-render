@@ -2,15 +2,18 @@ FROM n8nio/n8n:latest
 
 USER root
 
+# Créer un dossier pour les custom nodes
+RUN mkdir -p /home/node/.n8n/custom
+
 # Copier le package.json
-COPY package.json /usr/local/lib/node_modules/n8n/
+COPY package.json /home/node/.n8n/custom/
 
-# Installer les community nodes DANS le dossier de n8n
-WORKDIR /usr/local/lib/node_modules/n8n
-RUN npm install --legacy-peer-deps
+# Installer les community nodes
+WORKDIR /home/node/.n8n/custom
+RUN npm install --production
 
-# Vérifier l'installation
-RUN ls -la node_modules/ | grep n8n-nodes
+# Donner les permissions
+RUN chown -R node:node /home/node/.n8n
 
 USER node
 
