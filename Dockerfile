@@ -1,16 +1,17 @@
 FROM n8nio/n8n:latest
 
-# Copier le package.json dans le conteneur
-COPY package.json /home/node/
+USER root
 
-# Installer les community nodes via npm
-RUN npm install --prefix /home/node
+# Copier le package.json
+COPY package.json /usr/local/lib/node_modules/n8n/
 
-# Vérifier que les community nodes sont bien installés
-RUN ls /home/node/node_modules | grep n8n-nodes || echo "Aucun node détecté"
+# Installer les community nodes DANS le dossier de n8n
+WORKDIR /usr/local/lib/node_modules/n8n
+RUN npm install --legacy-peer-deps
 
-# Définir le dossier de travail
-WORKDIR /home/node/.n8n
+# Vérifier l'installation
+RUN ls -la node_modules/ | grep n8n-nodes
 
-# Exposer le port n8n
+USER node
+
 EXPOSE 5678
