@@ -12,6 +12,6 @@ services:
       - N8N_BASIC_AUTH_USER=ahmedflow
       - N8N_BASIC_AUTH_PASSWORD=pA@d56lhHLG2688*
       - N8N_HOST=0.0.0.0
-      - N8N_EDITOR_BASE_URL=https://nom-de-votre-service.onrender.com
-      - WEBHOOK_URL=https://nom-de-votre-service.onrender.com
+      - N8N_EDITOR_BASE_URL=https://n8n-service-4c6h.onrender.com
+      - WEBHOOK_URL=https://n8n-service-4c6h.onrender.com
       - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
