@@ -22,27 +22,27 @@ services:
       
       - key: DB_POSTGRESDB_HOST
         fromDatabase:
-          name: n8n-service-db
+          name: n8n-db
           property: host
       
       - key: DB_POSTGRESDB_PORT
         fromDatabase:
-          name: n8n-service-db
+          name: n8n-db
           property: port
       
       - key: DB_POSTGRESDB_DATABASE
         fromDatabase:
-          name: n8n-service-db
+          name: n8n-db
           property: database
       
       - key: DB_POSTGRESDB_USER
         fromDatabase:
-          name: n8n-service-db
+          name: n8n-db
           property: user
       
       - key: DB_POSTGRESDB_PASSWORD
         fromDatabase:
-          name: n8n-service-db
+          name: n8n-db
           property: password
       
       - key: DB_POSTGRESDB_SSL_ENABLED
@@ -53,7 +53,7 @@ services:
       
       # === Configuration URLs (CRITIQUE pour OAuth) ===
       - key: N8N_HOST
-        value: n8n-service-4c6h.onrender.com
+        value: n8n-service-4bbb.onrender.com
       
       - key: N8N_PORT
         value: 5678
@@ -62,10 +62,10 @@ services:
         value: https
       
       - key: N8N_EDITOR_BASE_URL
-        value: https://n8n-service-4c6h.onrender.com
+        value: https://n8n-service-4bbb.onrender.com
       
       - key: WEBHOOK_URL
-        value: https://n8n-service-4c6h.onrender.com
+        value: https://n8n-service-4bbb.onrender.com
       
       # === Sécurité ===
       - key: N8N_ENCRYPTION_KEY
@@ -125,8 +125,8 @@ services:
 # Base de Données PostgreSQL
 # ==========================================
 databases:
-  - name: n8n-service-db
-    databaseName: n8n_freelancewaar
+  - name: n8n-db
+    databaseName: n8n_db_m04h
     region: frankfurt
     plan: free
     postgresMajorVersion: 15
