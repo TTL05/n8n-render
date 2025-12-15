@@ -1,6 +1,133 @@
 services:
+  # ==========================================
+  # Service Web N8N pour FREELANCEWAAR
+  # ==========================================
   - type: web
-    name: n8n
-    env: docker
+    name: n8n-service
+    runtime: docker
+    region: frankfurt
     plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: ./
     autoDeploy: true
+    
+    # 🔌 Configuration Réseau
+    healthCheckPath: /healthz
+    
+    # 🧠 Variables d'Environnement Critiques
+    envVars:
+      # === Base de Données PostgreSQL ===
+      - key: DB_TYPE
+        value: postgresdb
+      
+      - key: DB_POSTGRESDB_HOST
+        fromDatabase:
+          name: n8n-service-db
+          property: host
+      
+      - key: DB_POSTGRESDB_PORT
+        fromDatabase:
+          name: n8n-service-db
+          property: port
+      
+      - key: DB_POSTGRESDB_DATABASE
+        fromDatabase:
+          name: n8n-service-db
+          property: database
+      
+      - key: DB_POSTGRESDB_USER
+        fromDatabase:
+          name: n8n-service-db
+          property: user
+      
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: n8n-service-db
+          property: password
+      
+      - key: DB_POSTGRESDB_SSL_ENABLED
+        value: true
+      
+      - key: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
+        value: false
+      
+      # === Configuration URLs (CRITIQUE pour OAuth) ===
+      - key: N8N_HOST
+        value: n8n-service-4c6h.onrender.com
+      
+      - key: N8N_PORT
+        value: 5678
+      
+      - key: N8N_PROTOCOL
+        value: https
+      
+      - key: N8N_EDITOR_BASE_URL
+        value: https://n8n-service-4c6h.onrender.com
+      
+      - key: WEBHOOK_URL
+        value: https://n8n-service-4c6h.onrender.com
+      
+      # === Sécurité ===
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
+      
+      - key: N8N_USER_MANAGEMENT_JWT_SECRET
+        generateValue: true
+      
+      - key: N8N_SECURE_COOKIE
+        value: false
+      
+      # === Optimisation Mémoire (Plan Gratuit) ===
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=450
+      
+      - key: N8N_RUNNERS_DISABLED
+        value: true
+      
+      - key: EXECUTIONS_PROCESS
+        value: main
+      
+      # === Nettoyage Automatique ===
+      - key: EXECUTIONS_DATA_PRUNE
+        value: true
+      
+      - key: EXECUTIONS_DATA_MAX_AGE
+        value: 168
+      
+      - key: EXECUTIONS_DATA_SAVE_ON_SUCCESS
+        value: none
+      
+      - key: EXECUTIONS_DATA_SAVE_ON_ERROR
+        value: all
+      
+      - key: EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS
+        value: true
+      
+      # === Performance ===
+      - key: N8N_METRICS
+        value: false
+      
+      - key: N8N_LOG_LEVEL
+        value: warn
+      
+      # === Timezone (Dakar) ===
+      - key: GENERIC_TIMEZONE
+        value: Africa/Dakar
+      
+      - key: TZ
+        value: Africa/Dakar
+      
+      # === Configuration FREELANCEWAAR ===
+      - key: N8N_PERSONALIZATION_ENABLED
+        value: false
+
+# ==========================================
+# Base de Données PostgreSQL
+# ==========================================
+databases:
+  - name: n8n-service-db
+    databaseName: n8n_freelancewaar
+    region: frankfurt
+    plan: free
+    postgresMajorVersion: 15
+    ipAllowList: []
