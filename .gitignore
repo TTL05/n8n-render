@@ -1,0 +1,12 @@
+.env
+.env.local
+.n8n/
+*.sqlite
+node_modules/
+logs/
+*.log
+.DS_Store
+.vscode/
+.idea/
+credentials.json
+secrets.json
