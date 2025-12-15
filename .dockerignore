@@ -1,0 +1,12 @@
+.git
+.gitignore
+*.md
+.env
+node_modules
+.n8n
+*.sqlite
+logs
+*.log
+.DS_Store
+.vscode
+.idea
